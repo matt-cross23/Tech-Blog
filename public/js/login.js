@@ -17,7 +17,10 @@ const loginFormHandler = async (event) => {
       // If successful, redirect the browser to the profile page
       document.location.replace('/dashboard');
     } else {
-      alert(response.statusText);
+      response.json()
+        .then(data => {
+          alert(data.message);
+        })
     }
   }
 };
@@ -35,11 +38,13 @@ const signupFormHandler = async (event) => {
       body: JSON.stringify({ name, email, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/dashboard');
     } else {
-      alert(response.statusText);
+      response.json()
+      .then(data => {
+        alert(data.errors[0].message);
+      })
     }
   }
 };

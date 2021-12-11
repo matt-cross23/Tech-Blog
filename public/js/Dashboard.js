@@ -1,38 +1,47 @@
-const router = require('express').Router();
-const { Post } = require('../../models');
-const withAuth = require('../../utils/auth');
+const newFormHandler = async (event) => {
+  event.preventDefault();
 
-router.post('/', withAuth, async (req, res) => {
-  try {
-    const newProject = await Post.create({
-      ...req.body,
-      user_id: req.session.user_id,
-    });
+  const name = document.querySelector('#project-name').value.trim();
+  const postTopic = document.querySelector('#post-topic').value.trim();
+  const description = document.querySelector('#project-desc').value.trim();
 
-    res.status(200).json(newProject);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
-
-router.delete('/:id', withAuth, async (req, res) => {
-  try {
-    const projectData = await Post.destroy({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
+  if (name && postTopic && description) {
+    const response = await fetch(`/api/post`, {
+      method: 'POST',
+      body: JSON.stringify({ name, postTopic, description }),
+      headers: {
+        'Content-Type': 'application/json',
       },
     });
 
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
-      return;
+    if (response.ok) {
+      document.location.replace('/dashboard');
+    } else {
+      alert('Failed to create project');
     }
-
-    res.status(200).json(projectData);
-  } catch (err) {
-    res.status(500).json(err);
   }
-});
+};
 
-module.exports = router;
+const delButtonHandler = async (event) => {
+  if (event.target.hasAttribute('data-id')) {
+    const id = event.target.getAttribute('data-id');
+
+    const response = await fetch(`/api/post/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      document.location.replace('/dashboard');
+    } else {
+      alert('Failed to delete project');
+    }
+  }
+};
+
+document
+  .querySelector('.new-project-form')
+  .addEventListener('submit', newFormHandler);
+
+document
+  .querySelector('.project-list')
+  .addEventListener('click', delButtonHandler);
