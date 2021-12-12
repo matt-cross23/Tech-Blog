@@ -31,4 +31,22 @@ router.delete("/:id", withAuth, async (req, res) => {
   }
 });
 
+router.put('/:id', withAuth, (req, res) => {
+  Post.update(
+    {
+    name: req.body.name,
+    description: req.body.description,
+    },
+    {
+      where:{
+        user_id: req.params.user_id,
+      },
+    })
+    .then((updatedPost) => {
+      res.json(updatedPost);
+    })
+    .catchcatch((err) => res.json(err) 
+    )
+  });
+
 module.exports = router;
