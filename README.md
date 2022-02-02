@@ -22,6 +22,6 @@
 
 
 
-  This site was built by [matt_cross34] https://github.com/matt_cross23 
+  This site was built by [matt_cross23](https://github.com/matt_cross23) 
   Contact me at: matthewcross1017@gmail.com
   :grinning:
