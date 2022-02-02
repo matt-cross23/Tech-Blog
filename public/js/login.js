@@ -43,7 +43,7 @@ const signupFormHandler = async (event) => {
     } else {
       response.json()
       .then(data => {
-        alert(data.errors[0].message);
+        alert(response.statusText);
       })
     }
   }
