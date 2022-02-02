@@ -15,6 +15,7 @@
 
   ## Description
   This web application allows users to log into a blog space which displays the post made by users. 
+  The link to the deployed application is https://dashboard.heroku.com/apps/blooming-caverns-39954
 
   ## Installation
   clone the repository and run npm start and look up the app on your local host
