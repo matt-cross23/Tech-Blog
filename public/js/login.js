@@ -15,6 +15,7 @@ const loginFormHandler = async (event) => {
 
     if (response.ok) {
       // If successful, redirect the browser to the profile page
+      
       document.location.replace('/dashboard');
     } else {
       response.json()
@@ -39,7 +40,9 @@ const signupFormHandler = async (event) => {
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
+       console.log(Successful Sign-up!!),
       document.location.replace('/dashboard');
+     
     } else {
       response.json()
       .then(data => {
